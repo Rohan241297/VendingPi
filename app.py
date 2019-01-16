@@ -12,4 +12,5 @@ firebase = pyrebase.initialize_app(config)
 
 database=firebase.database()
 
-database.child("Rohan").set("Hello World")
+#database.child("Rohan").set("Hello World")
+database.child("vending").set("machine")
