@@ -19,11 +19,14 @@ gp.setmode(gp.BOARD)
 gp.setup(5,gp.OUT)
 
 while True:
-    gp.output(5,gp.HIGH)
-    time.sleep(0.5)
-    gp.output(5,gp.LOW)
-    time.sleep(0.5)
- 
+	prevValue= database.child("items").child('1').child('prev').get().val()
+	presentValue=database.child("items").child('1').child('count').get().val()
+	if prevValue-presentValue !=0:
+		gp.output(5,gp.HIGH)
+		database.child("items").child('1').child('prev').set(presentValue)
+		time.sleep(2)
+	else:
+		gp.output(5,gp.LOW)
 
 
 
