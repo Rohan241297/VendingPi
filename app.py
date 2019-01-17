@@ -13,7 +13,7 @@ database=firebase.database()
 
 # print(database.child("items").child('1').child('name').get().val())
 
-# prevValue= database.child("items").child('1').child('prev').get().val()
+prevValue= database.child("items").child('1').child('prev').get().val()
 # print(prevValue)
 
 while True:
