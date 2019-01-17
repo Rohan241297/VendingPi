@@ -9,7 +9,16 @@ config = {
     'messagingSenderId': "148592097999"
   }
 firebase = pyrebase.initialize_app(config)
-
 database=firebase.database()
 
-database.child("Rohan").set("Hello")
+# print(database.child("items").child('1').child('name').get().val())
+
+# prevValue= database.child("items").child('1').child('prev').get().val()
+# print(prevValue)
+
+while True:
+  prevValue= database.child("items").child('1').child('prev').get().val()
+  presentValue=database.child("items").child('1').child('count').get().val()
+  if prevValue-presentValue != 0:
+    print('DataChanged')
+    database.child("items").child("1").child("prev").set(presentValue)
