@@ -22,3 +22,4 @@ while True:
   if prevValue-presentValue != 0:
     print('DataChanged')
     database.child("items").child("1").child("prev").set(presentValue)
+    print('l')
