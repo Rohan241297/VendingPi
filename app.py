@@ -54,6 +54,9 @@ def dairyData():
 
 while True:
 	selected=database.child('selected').get().val()
+	if selected == 1:
+		a,b=cokeData()
+		if a !=0:
 	if gp.input(sensor)==1:
 		database.child('received').set(1)
 		time.sleep(2)
@@ -70,7 +73,6 @@ while True:
 	elif selected == 2:
 		a,b=kitData()
 		if a !=0:
-			#print('Data Changed')
 			database.child('items').child('2').child('prev').set(b)
 			gp.output(kit,1)
 		else:
@@ -78,7 +80,6 @@ while True:
 	elif selected == 3:
 		a,b=supData()
 		if a !=0:
-			#print('Data Changed')
 			database.child('items').child('3').child('prev').set(b)
 			gp.output(sup,1)
 		else:
@@ -86,7 +87,6 @@ while True:
 	elif selected == 4:
 		a,b=laysData()
 		if a !=0:
-			#print('Data Changed')
 			database.child('items').child('4').child('prev').set(b)
 			gp.output(lays,1)
 		else:
@@ -94,9 +94,12 @@ while True:
 	elif selected == 5:
 		a,b=dairyData()
 		if a !=0:
+			database.child('items').child('5').child('prev').set(b)
+			gp.output(dairy,1)
+		else:
+gp.output(dairy,0)
 			#print('Data Changed')
 			database.child('items').child('5').child('prev').set(b)
 			gp.output(dairy,1)
 		else:
 			gp.output(dairy,0)
-

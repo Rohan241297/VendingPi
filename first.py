@@ -7,4 +7,4 @@ while True:
 	if gp.input(3) == 1:
 		print("High")
 	else:
-print("LOW")
+		print("LOW")
