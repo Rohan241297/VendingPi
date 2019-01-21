@@ -1,5 +1,6 @@
 import RPi.GPIO as gp
 import pyrebase
+import time
 config = {
     'apiKey': "AIzaSyBJIreESnah74oUzVMy10VcUW-pX_4xiKM",
     'authDomain': "my-vending-machine.firebaseapp.com",
@@ -15,6 +16,7 @@ kit =5
 sup =7
 lays =11
 dairy = 13
+sensor = 15
 # print(prevValue)
 gp.setmode(gp.BOARD)
 gp.setup(coke,gp.OUT)
@@ -22,6 +24,7 @@ gp.setup(kit,gp.OUT)
 gp.setup(sup,gp.OUT)
 gp.setup(lays,gp.OUT)
 gp.setup(dairy,gp.OUT)
+gp.setup(sensor,gp.IN)
 def cokeData():
 	prevValue= database.child("items").child('1').child('prev').get().val()
 	presentValue=database.child("items").child('1').child('count').get().val()
@@ -54,6 +57,15 @@ while True:
 	if selected == 1:
 		a,b=cokeData()
 		if a !=0:
+	if gp.input(sensor)==1:
+		database.child('received').set(1)
+		time.sleep(2)
+	else:
+		database.child('received').set(0)
+	if selected == 1:
+		a,b=cokeData()
+		if a !=0:
+			#print('Data Changed')
 			database.child('items').child('1').child('prev').set(b)
 			gp.output(coke,1)
 		else:
@@ -86,3 +98,8 @@ while True:
 			gp.output(dairy,1)
 		else:
 gp.output(dairy,0)
+			#print('Data Changed')
+			database.child('items').child('5').child('prev').set(b)
+			gp.output(dairy,1)
+		else:
+			gp.output(dairy,0)
