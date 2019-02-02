@@ -33,10 +33,15 @@ def updateItemCount(name):
     d = r.text
     print(d)
 
+def updateWalletBalance(userId,price):
+    r = req.post(url + '/api' + '/update/' + 'wallet/' + userId + '/'+ price)
+    d = r.text
+    print (data)
+
 while True:
     if   gp.input(cardPin) == 1:
         if gp.input(card1) == 1:
-
+            updateWalletBalance(card1,'30')
 
 
     elif gp.input(phonePin) == 1:
