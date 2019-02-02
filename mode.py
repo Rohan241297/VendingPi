@@ -9,6 +9,12 @@ url = 'https://vendingpi.herokuapp.com'
 cardPin = 3
 phonePin = 5
 
+cokePrice = '20'
+LaysPrice = '10'
+KitKatPrice = '10'
+DairyMilk = '30'
+
+
 card1 = 11 
 card2 = 13
 card3 = 15
@@ -40,14 +46,17 @@ def updateWalletBalance(userId,price):
 
 while True:
     if   gp.input(cardPin) == 1:
+        print('Card Mode')
         if gp.input(card1) == 1:
-            updateWalletBalance(card1,'30')
+            print('Rohan')
+            
 
 
     elif gp.input(phonePin) == 1:
     
 
     else:
+        print('NO Mode')
 
 
 
