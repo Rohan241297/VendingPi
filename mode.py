@@ -49,6 +49,8 @@ while True:
         print('Card Mode')
         if gp.input(card1) == 1:
             print('Rohan')
+        elif gp.input(card2) == 1:
+            print('Sireesh')
             
 
 
