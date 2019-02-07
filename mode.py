@@ -1,6 +1,6 @@
 import RPi.GPIO as gp
 import time
-import requests
+import requests as req
 
 gp.setmode(gp.BOARD)
 
@@ -9,45 +9,60 @@ url = 'https://vendingpi.herokuapp.com'
 cardPin = 3
 phonePin = 5
 
-card1 = 11 
+cokePrice = '20'
+LaysPrice = '10'
+KitKatPrice = '10'
+DairyMilk = '30'
+
+card1 = 11
 card2 = 13
 card3 = 15
-card4 = 19
-card5 = 21
+cardSuccess = 19
+Mode = 21
 
-gp.setup(cardPin,gp.IN)
-gp.setup(phonePin,gp.IN)
-gp.setup(card1,gp.IN)
-gp.setup(card2,gp.IN)
-gp.setup(card3,gp.IN)
-gp.setup(card4,gp.IN)
-gp.setup(card5,gp.IN)
+gp.setup(cardPin, gp.IN)
+gp.setup(phonePin, gp.IN)
+gp.setup(card1, gp.IN)
+gp.setup(card2, gp.IN)
+gp.setup(card3, gp.IN)
+gp.setup(cardSuccess, gp.IN)
+gp.setup(Mode, gp.OUT)
 
-user1 = "X9JiHpsDt9OioCmBiX1VwSwiq7m2"  #Rohan
-user2 = "Yet2jm7a5nOlc9c1cXYChcHl6cp1"  #Dhanush
-user3 = "cpqSQeFfnMf6HrKwGIv2f0TcQB72"  #Shireesh
-user4 = "ktIzXYFnnwZrqL1UQy23j226dLz2"  #Raghav
- 
+user1 = "X9JiHpsDt9OioCmBiX1VwSwiq7m2"  # Rohan
+user2 = "Yet2jm7a5nOlc9c1cXYChcHl6cp1"  # Dhanush
+user3 = "cpqSQeFfnMf6HrKwGIv2f0TcQB72"  # Shireesh
+user4 = "ktIzXYFnnwZrqL1UQy23j226dLz2"  # Raghav
+
+priceArray = [cokePrice, LaysPrice, KitKatPrice, DairyMilk]
+
+def getMode():
+    r = req.get(url + '/api' + '/get' + '/mode')
+    k = r.getjson()
+    return k
+
+
 def updateItemCount(name):
     r = req.post(url + '/api' + '/update' + '/item/' + name)
     d = r.text
     print(d)
 
-def updateWalletBalance(userId,price):
-    r = req.post(url + '/api' + '/update/' + 'wallet/' + userId + '/'+ price)
+
+def updateWalletBalance(userId, price):
+    r = req.post(url + '/api' + '/update/' + 'wallet/' + userId + '/' + price)
     d = r.text
-    print (data)
-
-while True:
-    if   gp.input(cardPin) == 1:
-        if gp.input(card1) == 1:
-            updateWalletBalance(card1,'30')
+    print(d)
 
 
-    elif gp.input(phonePin) == 1:
-    
-
-    else:
-
-
+if __name__ == '__main__':
+    while True:
+        f = getMode()
+        mode = f['mode']
+        user = f['user']
+        selected = f['selected']
+        if mode == 'Card':
+            if gp.input(cardSuccess) == 1:
+                updateWalletBalance(user, priceArray[int(selected)-1])
+                break
+        else:
+            print('Coin Mode')
 
