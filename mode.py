@@ -38,7 +38,7 @@ priceArray = [cokePrice, LaysPrice, KitKatPrice, DairyMilk]
 
 def getMode():
     r = req.get(url + '/api' + '/get' + '/mode')
-    k = r.getjson()
+    k = r.json()
     return k
 
 
