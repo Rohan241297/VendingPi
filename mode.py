@@ -35,9 +35,10 @@ user4 = "ktIzXYFnnwZrqL1UQy23j226dLz2"  # Raghav
 
 priceArray = [cokePrice, LaysPrice, KitKatPrice, DairyMilk]
 
+
 def getMode():
     r = req.get(url + '/api' + '/get' + '/mode')
-    k = r.getjson()
+    k = r.json()
     return k
 
 
@@ -60,9 +61,11 @@ if __name__ == '__main__':
         user = f['user']
         selected = f['selected']
         if mode == 'Card':
+            gp.output(Mode, 1)
             if gp.input(cardSuccess) == 1:
-                updateWalletBalance(user, priceArray[int(selected)-1])
-                break
+                f = updateWalletBalance(user, priceArray[int(selected) - 1])
+                if f == 'OK':
+                    gp.output(Mode, 0)
+                    break
         else:
             print('Coin Mode')
-
